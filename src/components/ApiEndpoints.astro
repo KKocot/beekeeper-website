@@ -1,0 +1,115 @@
+---
+const endpoints = [
+  { name: "create_session", params: "salt?", returns: "{ token }", desc: "Creates a new session, returns auth token", category: "Session" },
+  { name: "close_session", params: "token", returns: "{}", desc: "Closes session, releases resources", category: "Session" },
+  { name: "create", params: "token, wallet_name, password?, is_temporary?", returns: "{ password }", desc: "Creates a new wallet, auto-generates password", category: "Wallet" },
+  { name: "open", params: "token, wallet_name", returns: "{}", desc: "Opens wallet from disk into session", category: "Wallet" },
+  { name: "close", params: "token, wallet_name", returns: "{}", desc: "Closes wallet (file remains on disk)", category: "Wallet" },
+  { name: "has_wallet", params: "token, wallet_name", returns: "{ exists: bool }", desc: "Checks if wallet exists", category: "Wallet" },
+  { name: "list_wallets", params: "token", returns: "{ wallets: [{name, unlocked}] }", desc: "Lists open wallets in session", category: "Wallet" },
+  { name: "list_created_wallets", params: "token", returns: "{ wallets: [{name, unlocked}] }", desc: "Lists all wallets on disk", category: "Wallet" },
+  { name: "lock", params: "token, wallet_name", returns: "{}", desc: "Locks wallet (keys cleared from memory)", category: "Locking" },
+  { name: "lock_all", params: "token", returns: "{}", desc: "Locks all wallets in session", category: "Locking" },
+  { name: "unlock", params: "token, wallet_name, password", returns: "{}", desc: "Unlocks wallet with password", category: "Locking" },
+  { name: "set_timeout", params: "token, seconds: uint32", returns: "{}", desc: "Sets auto-lock timeout (default 900s)", category: "Locking" },
+  { name: "is_wallet_unlocked", params: "token, wallet_name", returns: "{ unlocked: bool }", desc: "Checks if wallet is unlocked", category: "Locking" },
+  { name: "import_key", params: "token, wallet_name, wif_key", returns: "{ public_key }", desc: "Imports a WIF private key", category: "Keys" },
+  { name: "import_keys", params: "token, wallet_name, wif_keys[]", returns: "{ public_keys[] }", desc: "Batch import of private keys", category: "Keys" },
+  { name: "remove_key", params: "token, wallet_name, public_key", returns: "{}", desc: "Removes a private key", category: "Keys" },
+  { name: "get_public_keys", params: "token, wallet_name?", returns: "{ keys: [{public_key}] }", desc: "Lists public keys", category: "Keys" },
+  { name: "has_matching_private_key", params: "token, wallet_name, public_key", returns: "{ exists: bool }", desc: "Checks if wallet holds the private key", category: "Keys" },
+  { name: "sign_digest", params: "token, sig_digest, public_key, wallet_name?", returns: "{ signature (hex) }", desc: "Signs a transaction digest", category: "Signing" },
+  { name: "encrypt_data", params: "token, wallet_name, from_public_key, to_public_key, content, nonce?", returns: "{ encrypted_content }", desc: "Encrypts data via ECDH", category: "Encryption" },
+  { name: "decrypt_data", params: "token, wallet_name, from_public_key, to_public_key, encrypted_content", returns: "{ decrypted_content }", desc: "Decrypts data", category: "Encryption" },
+  { name: "get_info", params: "token", returns: "{ now, timeout_time }", desc: "Server time and auto-lock info", category: "System" },
+  { name: "get_version", params: "none", returns: "{ version }", desc: "Git revision SHA (no token required)", category: "System" },
+];
+
+const accentCategories = new Set(["Signing", "Encryption"]);
+---
+
+<section id="endpoints" aria-labelledby="endpoints-heading" class="px-4 py-24">
+  <div class="mx-auto max-w-7xl">
+    <div class="mb-12 text-center">
+      <span class="inline-block rounded-full bg-accent-muted px-3 py-1 text-sm text-accent">
+        22 Endpoints
+      </span>
+      <h2 id="endpoints-heading" class="mt-4 text-3xl font-bold text-text-primary md:text-4xl">
+        API Reference
+      </h2>
+      <p class="mt-4 text-text-secondary">
+        Complete JSON-RPC interface — sessions, wallets, keys, signing and encryption
+      </p>
+    </div>
+
+    <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+      {endpoints.map((ep, i) => (
+        <div
+          class="endpoint-card rounded-md border border-border-subtle bg-bg-elevated p-2.5 transition duration-500 hover:border-accent/30"
+          style={`transition-delay: ${i * 30}ms`}
+        >
+          <div class="mb-1.5 flex items-start justify-between gap-1.5">
+            <code class="font-mono text-xs font-bold leading-tight text-accent">{ep.name}</code>
+            <span class:list={[
+              "shrink-0 rounded-full px-1.5 py-0.5 text-[0.5625rem] font-medium leading-none",
+              accentCategories.has(ep.category)
+                ? "bg-accent-muted text-accent"
+                : "bg-bg-subtle text-text-tertiary",
+            ]}>
+              {ep.category}
+            </span>
+          </div>
+          <p class="mb-1.5 text-[0.6875rem] leading-snug text-text-secondary">{ep.desc}</p>
+          <div class="space-y-0.5 border-t border-border-subtle/50 pt-1.5 font-mono text-[0.625rem] leading-snug text-text-tertiary">
+            <div><span class="text-text-secondary">in:</span> {ep.params}</div>
+            <div><span class="text-text-secondary">out:</span> {ep.returns}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .endpoint-card {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+
+  .endpoint-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .endpoint-card {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const cards = document.querySelectorAll(".endpoint-card");
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (prefersReducedMotion) {
+    cards.forEach((c) => c.classList.add("visible"));
+  } else {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("visible");
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+    cards.forEach((c) => observer.observe(c));
+  }
+</script>
