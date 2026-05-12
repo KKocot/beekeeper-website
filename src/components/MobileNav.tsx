@@ -81,15 +81,32 @@ const MobileNav: Component = () => {
                 {link.label}
               </a>
             ))}
-            <a
-              href="https://gitlab.syncad.com/hive/beekeeper"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={close}
-              class="mt-3 inline-flex w-full items-center justify-center rounded-lg bg-accent px-4 py-2.5 text-center font-semibold text-bg-primary transition hover:bg-accent-hover"
-            >
-              Source Code
-            </a>
+            <div class="mt-3 flex items-center justify-center gap-4 border-t border-border-subtle pt-3">
+              <a
+                href="https://gitlab.syncad.com/hive/beekeeper"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={close}
+                class="flex items-center gap-2 text-sm text-text-secondary transition hover:text-accent"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M23.955 13.587l-1.342-4.135-2.664-8.189a.455.455 0 0 0-.867 0L16.418 9.45H7.582L4.918 1.263a.455.455 0 0 0-.867 0L1.387 9.452.045 13.587a.924.924 0 0 0 .331 1.023L12 23.054l11.624-8.443a.92.92 0 0 0 .331-1.024"/>
+                </svg>
+                GitLab
+              </a>
+              <a
+                href="https://www.npmjs.com/package/@hiveio/beekeeper"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={close}
+                class="flex items-center gap-2 text-sm text-text-secondary transition hover:text-accent"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.331h-2.669zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331zM10.665 10H12v2.667h-1.335V10z"/>
+                </svg>
+                npm
+              </a>
+            </div>
           </nav>
         </div>
       )}
