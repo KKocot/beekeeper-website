@@ -1,0 +1,142 @@
+---
+const steps = [
+  {
+    number: 1,
+    title: "Install the package",
+    description:
+      "Add Beekeeper to your project with your package manager of choice",
+    lang: "bash",
+    code: `<span class="text-accent">npm</span> <span class="text-text-primary">install @hiveio/beekeeper</span>`,
+  },
+  {
+    number: 2,
+    title: "Create a wallet",
+    description: "Initialize Beekeeper and create an encrypted wallet",
+    lang: "typescript",
+    code: `<span class="text-[#C792EA]">import</span> <span class="text-text-primary">{ </span><span class="text-[#82AAFF]">createBeekeeper</span><span class="text-text-primary"> }</span> <span class="text-[#C792EA]">from</span> <span class="text-accent">"@hiveio/beekeeper"</span><span class="text-text-primary">;</span>
+
+<span class="text-[#C792EA]">const</span> <span class="text-text-primary">beekeeper =</span> <span class="text-[#C792EA]">await</span> <span class="text-[#82AAFF]">createBeekeeper</span><span class="text-text-primary">();</span>
+<span class="text-[#C792EA]">const</span> <span class="text-text-primary">session = beekeeper.</span><span class="text-[#82AAFF]">createSession</span><span class="text-text-primary">(</span><span class="text-accent">"salt"</span><span class="text-text-primary">);</span>
+<span class="text-[#C792EA]">const</span> <span class="text-text-primary">wallet =</span> <span class="text-[#C792EA]">await</span> <span class="text-text-primary">session.</span><span class="text-[#82AAFF]">createWallet</span><span class="text-text-primary">(</span><span class="text-accent">"my_wallet"</span><span class="text-text-primary">,</span> <span class="text-accent">"pass"</span><span class="text-text-primary">);</span>`,
+  },
+  {
+    number: 3,
+    title: "Sign transactions",
+    description: "Import keys and sign transaction digests securely",
+    lang: "typescript",
+    code: `<span class="text-[#C792EA]">await</span> <span class="text-text-primary">wallet.</span><span class="text-[#82AAFF]">importKey</span><span class="text-text-primary">(</span><span class="text-accent">"5JkFnXrLM2ap..."</span><span class="text-text-primary">);</span>
+<span class="text-[#C792EA]">const</span> <span class="text-text-primary">sig = wallet.</span><span class="text-[#82AAFF]">signDigest</span><span class="text-text-primary">(</span><span class="text-accent">"9a37a3..."</span><span class="text-text-primary">);</span>
+<span class="text-text-primary">console.</span><span class="text-[#82AAFF]">log</span><span class="text-text-primary">(sig.value);</span>`,
+  },
+];
+---
+
+<section id="getting-started" aria-labelledby="getting-started-heading" class="px-4 py-24">
+  <div class="mx-auto max-w-3xl">
+    {/* Section header */}
+    <div class="mb-16 text-center">
+      <span
+        class="inline-block rounded-full bg-accent-muted px-3 py-1 text-sm text-accent"
+      >
+        Quick Start
+      </span>
+      <h2 id="getting-started-heading" class="mt-4 text-3xl font-bold text-text-primary md:text-4xl">
+        Up and running in minutes
+      </h2>
+    </div>
+
+    {/* Steps */}
+    <div class="space-y-8">
+      {
+        steps.map((step) => (
+          <div
+            class="step-card"
+            style={`transition-delay: ${(step.number - 1) * 150}ms`}
+          >
+            {/* Step header */}
+            <div class="flex items-center gap-3">
+              <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-accent text-sm font-bold text-bg-primary">
+                {step.number}
+              </span>
+              <h3 class="text-xl font-semibold text-text-primary">
+                {step.title}
+              </h3>
+            </div>
+
+            {/* Description */}
+            <p class="mt-2 ml-11 text-text-secondary">{step.description}</p>
+
+            {/* Code block */}
+            <div class="mt-4 ml-11 overflow-hidden rounded-lg border border-border-subtle bg-code-bg">
+              {/* Code block header */}
+              <div class="flex items-center justify-between border-b border-border-subtle px-4 py-2">
+                <span class="text-xs text-text-tertiary">{step.lang}</span>
+              </div>
+              {/* Code content */}
+              <pre class="overflow-x-auto p-4 font-mono text-sm leading-relaxed"><code set:html={step.code} /></pre>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    {/* CTA */}
+    <div class="mt-12 text-center">
+      <a
+        href="https://developers.hive.io"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-medium text-accent transition hover:text-accent-hover"
+      >
+        Read the full documentation &rarr;
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .step-card {
+    opacity: 0;
+    transform: translateY(1rem);
+    transition:
+      opacity 0.6s ease-out,
+      transform 0.6s ease-out;
+  }
+
+  .step-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .step-card {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const stepCards = document.querySelectorAll(".step-card");
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (prefersReducedMotion) {
+    stepCards.forEach((c) => c.classList.add("visible"));
+  } else {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("visible");
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    stepCards.forEach((c) => observer.observe(c));
+  }
+</script>

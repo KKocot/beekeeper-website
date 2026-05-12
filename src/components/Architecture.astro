@@ -1,0 +1,335 @@
+---
+---
+
+<section id="architecture" aria-labelledby="architecture-heading" class="py-24 px-4">
+  <!-- Header -->
+  <div class="text-center mb-16">
+    <span class="inline-block rounded-full bg-accent-muted px-3 py-1 text-sm text-accent">
+      Architecture
+    </span>
+    <h2 id="architecture-heading" class="text-3xl md:text-4xl font-bold mt-4 text-text-primary">
+      One core, two targets
+    </h2>
+    <p class="text-text-secondary mt-4 max-w-2xl mx-auto">
+      Shared C++ library powers both the native daemon and browser-ready WASM package
+    </p>
+  </div>
+
+  <!-- Diagram -->
+  <div class="arch-diagram mx-auto max-w-4xl" id="arch-diagram">
+
+    <!-- Row 1: Shared Core -->
+    <div class="flex justify-center">
+      <div class="arch-box arch-box--core arch-reveal" data-delay="0">
+        <p class="font-semibold text-text-primary">Shared Core</p>
+        <p class="text-text-secondary text-sm mt-1">C++ Library</p>
+        <p class="text-text-tertiary text-xs mt-2">Wallet Management &middot; Encryption &middot; Key Storage</p>
+      </div>
+    </div>
+
+    <!-- Connector: Core -> split -->
+    <div class="flex justify-center">
+      <div class="arch-line arch-line--vertical arch-reveal-line" data-delay="150"></div>
+    </div>
+
+    <!-- Connector: horizontal split (desktop only) -->
+    <div class="arch-split arch-reveal-line" data-delay="150">
+      <div class="arch-line--horizontal"></div>
+    </div>
+
+    <!-- Connector: two vertical drops (desktop) -->
+    <div class="arch-split-drops">
+      <div class="arch-line arch-line--drop-left arch-reveal-line" data-delay="200"></div>
+      <div class="arch-line arch-line--drop-right arch-reveal-line" data-delay="200"></div>
+    </div>
+
+    <!-- Row 2: Native + WASM -->
+    <div class="arch-row-pair">
+      <div class="arch-branch">
+        <!-- Mobile connector -->
+        <div class="arch-mobile-connector">
+          <div class="arch-line arch-line--vertical arch-reveal-line" data-delay="200"></div>
+        </div>
+        <div class="arch-box arch-reveal" data-delay="300">
+          <p class="font-semibold text-text-primary">Native Daemon</p>
+          <p class="text-text-secondary text-sm mt-1">C++ / Boost</p>
+          <p class="text-text-tertiary text-xs mt-2">HTTP & WebSocket server</p>
+        </div>
+      </div>
+      <div class="arch-branch">
+        <!-- Mobile connector -->
+        <div class="arch-mobile-connector">
+          <div class="arch-line arch-line--vertical arch-reveal-line" data-delay="200"></div>
+        </div>
+        <div class="arch-box arch-reveal" data-delay="300">
+          <p class="font-semibold text-text-primary">WASM Package</p>
+          <p class="text-text-secondary text-sm mt-1">Emscripten / TypeScript</p>
+          <p class="text-text-tertiary text-xs mt-2">@hiveio/beekeeper</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Connectors: row 2 -> row 3 -->
+    <div class="arch-row-pair-connectors">
+      <div class="arch-branch-connector">
+        <div class="arch-line arch-line--vertical arch-reveal-line" data-delay="450"></div>
+      </div>
+      <div class="arch-branch-connector">
+        <div class="arch-line arch-line--vertical arch-reveal-line" data-delay="450"></div>
+      </div>
+    </div>
+
+    <!-- Row 3: API + Browser -->
+    <div class="arch-row-pair">
+      <div class="arch-branch">
+        <div class="arch-box arch-reveal" data-delay="600">
+          <p class="font-semibold text-text-primary">JSON-RPC API</p>
+          <p class="text-text-secondary text-sm mt-1">20 endpoints</p>
+        </div>
+      </div>
+      <div class="arch-branch">
+        <div class="arch-box arch-reveal" data-delay="600">
+          <p class="font-semibold text-text-primary">Browser & Node.js</p>
+          <p class="text-text-secondary text-sm mt-1">&lt; 274 KB bundle</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* === Box styles === */
+  .arch-box {
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    width: 100%;
+    max-width: 16rem;
+  }
+
+  .arch-box--core {
+    border-color: color-mix(in srgb, var(--color-accent) 50%, transparent);
+    box-shadow: 0 0 2rem color-mix(in srgb, var(--color-accent) 10%, transparent);
+  }
+
+  /* === Connecting lines === */
+  .arch-line--vertical {
+    width: 1px;
+    height: 2rem;
+    background-color: var(--color-border-subtle);
+    margin: 0 auto;
+  }
+
+  /* === Desktop: horizontal T-split === */
+  .arch-split {
+    display: none;
+  }
+
+  .arch-split-drops {
+    display: none;
+  }
+
+  .arch-row-pair-connectors {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .arch-split {
+      display: flex;
+      justify-content: center;
+      padding: 0 calc(50% - 8rem);
+    }
+
+    .arch-line--horizontal {
+      height: 1px;
+      width: 100%;
+      background-color: var(--color-border-subtle);
+    }
+
+    .arch-split-drops {
+      display: flex;
+      justify-content: center;
+      padding: 0 calc(50% - 8rem);
+    }
+
+    .arch-line--drop-left,
+    .arch-line--drop-right {
+      width: 1px;
+      height: 1rem;
+      background-color: var(--color-border-subtle);
+    }
+
+    .arch-split-drops {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 calc(50% - 8rem);
+    }
+
+    .arch-row-pair-connectors {
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+    }
+
+    .arch-branch-connector {
+      width: 16rem;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  /* === Row pair layout === */
+  .arch-row-pair {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .arch-branch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 16rem;
+  }
+
+  @media (min-width: 768px) {
+    .arch-row-pair {
+      flex-direction: row;
+      justify-content: center;
+      gap: 4rem;
+    }
+  }
+
+  /* === Mobile connectors (vertical lines between stacked boxes) === */
+  .arch-mobile-connector {
+    display: block;
+  }
+
+  @media (min-width: 768px) {
+    .arch-mobile-connector {
+      display: none;
+    }
+
+    /* Hide the top-level vertical connector below core on desktop
+       (replaced by horizontal T-split) */
+    .arch-diagram > .flex.justify-center + .flex.justify-center {
+      display: none;
+    }
+  }
+
+  /* === Reveal animations === */
+  @keyframes arch-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes arch-line-grow {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+
+  @keyframes arch-line-grow-x {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  .arch-reveal {
+    opacity: 0;
+  }
+
+  .arch-reveal-line .arch-line--vertical,
+  .arch-reveal-line .arch-line--drop-left,
+  .arch-reveal-line .arch-line--drop-right {
+    transform: scaleY(0);
+    transform-origin: top center;
+  }
+
+  .arch-reveal-line .arch-line--horizontal {
+    transform: scaleX(0);
+    transform-origin: center;
+  }
+
+  /* When diagram is visible */
+  .arch-diagram.visible .arch-reveal {
+    animation: arch-fade-up 0.5s ease-out forwards;
+  }
+
+  .arch-diagram.visible .arch-reveal-line .arch-line--vertical,
+  .arch-diagram.visible .arch-reveal-line .arch-line--drop-left,
+  .arch-diagram.visible .arch-reveal-line .arch-line--drop-right {
+    animation: arch-line-grow 0.4s ease-out forwards;
+  }
+
+  .arch-diagram.visible .arch-reveal-line .arch-line--horizontal {
+    animation: arch-line-grow-x 0.4s ease-out forwards;
+  }
+
+  /* Apply delays from data attributes */
+  .arch-diagram.visible [data-delay="0"] { animation-delay: 0ms; }
+  .arch-diagram.visible [data-delay="150"] .arch-line--vertical,
+  .arch-diagram.visible [data-delay="150"] .arch-line--horizontal,
+  .arch-diagram.visible [data-delay="150"] .arch-line--drop-left,
+  .arch-diagram.visible [data-delay="150"] .arch-line--drop-right { animation-delay: 150ms; }
+  .arch-diagram.visible [data-delay="200"] .arch-line--vertical,
+  .arch-diagram.visible [data-delay="200"] .arch-line--drop-left,
+  .arch-diagram.visible [data-delay="200"] .arch-line--drop-right { animation-delay: 200ms; }
+  .arch-diagram.visible [data-delay="300"] { animation-delay: 300ms; }
+  .arch-diagram.visible [data-delay="450"] .arch-line--vertical { animation-delay: 450ms; }
+  .arch-diagram.visible [data-delay="600"] { animation-delay: 600ms; }
+
+  /* === Reduced motion === */
+  @media (prefers-reduced-motion: reduce) {
+    .arch-reveal {
+      opacity: 1;
+      animation: none !important;
+    }
+
+    .arch-reveal-line .arch-line--vertical,
+    .arch-reveal-line .arch-line--drop-left,
+    .arch-reveal-line .arch-line--drop-right {
+      transform: scaleY(1);
+      animation: none !important;
+    }
+
+    .arch-reveal-line .arch-line--horizontal {
+      transform: scaleX(1);
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  const diagram = document.getElementById("arch-diagram");
+  if (diagram) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            diagram.classList.add("visible");
+            observer.unobserve(diagram);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(diagram);
+  }
+</script>

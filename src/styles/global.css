@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/700.css";
+@import "@fontsource/inter/800.css";
+@import "@fontsource/jetbrains-mono/400.css";
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@theme {
+  --color-bg-primary: #0C0C0F;
+  --color-bg-elevated: #161619;
+  --color-bg-subtle: #1E1E23;
+  --color-border-subtle: #2A2A30;
+  --color-text-primary: #E8E8EC;
+  --color-text-secondary: #8B8B96;
+  --color-text-tertiary: #5A5A66;
+  --color-accent: #F5A623;
+  --color-accent-hover: #FFBE44;
+  --color-accent-muted: #3D2A0A;
+  --color-success: #34D399;
+  --color-error: #F87171;
+  --color-code-bg: #111114;
+
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}

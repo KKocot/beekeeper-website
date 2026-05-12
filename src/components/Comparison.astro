@@ -1,0 +1,143 @@
+---
+const rows = [
+  { feature: "Encrypted wallet storage", beekeeper: true, manual: false },
+  { feature: "Auto-lock on inactivity", beekeeper: true, manual: false },
+  { feature: "Multi-session support", beekeeper: true, manual: false },
+  { feature: "HTTP/WebSocket API", beekeeper: true, manual: false },
+  { feature: "Browser WASM support", beekeeper: true, manual: false },
+  { feature: "Transaction signing", beekeeper: true, manual: true },
+  { feature: "Key import/export", beekeeper: true, manual: true },
+  { feature: "Memo encryption", beekeeper: true, manual: false },
+  { feature: "Bundle < 274 KB", beekeeper: true, manual: "na" },
+];
+---
+
+<section id="comparison" aria-labelledby="comparison-heading" class="px-4 py-24">
+  <div class="mx-auto max-w-3xl">
+    {/* Section header */}
+    <div class="mb-16 text-center">
+      <span
+        class="inline-block rounded-full bg-accent-muted px-3 py-1 text-sm text-accent"
+      >
+        Why Beekeeper
+      </span>
+      <h2 id="comparison-heading" class="mt-4 text-3xl font-bold text-text-primary md:text-4xl">
+        Stop managing keys manually
+      </h2>
+    </div>
+
+    {/* Table wrapper — horizontal scroll on mobile */}
+    <div
+      class="comparison-table overflow-x-auto rounded-xl border border-border-subtle bg-bg-elevated"
+    >
+      <table class="w-full min-w-[28rem]">
+        <thead>
+          <tr class="bg-bg-subtle">
+            <th
+              class="px-6 py-4 text-left text-sm font-medium uppercase tracking-wider text-text-secondary"
+            >
+              Feature
+            </th>
+            <th
+              class="px-6 py-4 text-center text-sm font-semibold uppercase tracking-wider text-accent"
+            >
+              Beekeeper
+            </th>
+            <th
+              class="px-6 py-4 text-center text-sm font-medium uppercase tracking-wider text-text-secondary"
+            >
+              Manual
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            rows.map((row, i) => (
+              <tr
+                class:list={[
+                  "comparison-row",
+                  i < rows.length - 1 ? "border-b border-border-subtle" : "",
+                ]}
+              >
+                <td class="px-6 py-4 text-sm text-text-primary">
+                  {row.feature}
+                </td>
+                <td class="px-6 py-4 text-center">
+                  <span class="text-lg font-bold text-success" aria-label="Yes">
+                    &#10003;
+                  </span>
+                </td>
+                <td class="px-6 py-4 text-center">
+                  {row.manual === "na" ? (
+                    <span class="text-sm text-text-tertiary">N/A</span>
+                  ) : row.manual ? (
+                    <span
+                      class="text-lg font-bold text-success"
+                      aria-label="Yes"
+                    >
+                      &#10003;
+                    </span>
+                  ) : (
+                    <span
+                      class="text-lg font-bold text-error"
+                      aria-label="No"
+                    >
+                      &#10007;
+                    </span>
+                  )}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<style>
+  .comparison-table {
+    opacity: 0;
+    transform: translateY(1rem);
+    transition:
+      opacity 0.6s ease-out,
+      transform 0.6s ease-out;
+  }
+
+  .comparison-table.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .comparison-table {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const table = document.querySelector(".comparison-table");
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (prefersReducedMotion) {
+    table?.classList.add("visible");
+  } else if (table) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("visible");
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(table);
+  }
+</script>

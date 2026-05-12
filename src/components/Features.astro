@@ -1,0 +1,230 @@
+---
+const features = [
+  {
+    title: "Native & WASM",
+    description:
+      "Run as a C++ HTTP daemon or use the npm package directly in browser and Node.js",
+    icon: "dual-build",
+  },
+  {
+    title: "Secure Key Isolation",
+    description:
+      "Private keys never leave the process. Sign transactions without exposing secrets",
+    icon: "key-isolation",
+  },
+  {
+    title: "Multi-Session Support",
+    description:
+      "Token-based sessions with concurrent access. Multiple users, one daemon",
+    icon: "sessions",
+  },
+  {
+    title: "Auto-Lock Timeout",
+    description:
+      "Wallets automatically lock after configurable inactivity period. Default 900s",
+    icon: "auto-lock",
+  },
+  {
+    title: "20 API Endpoints",
+    description:
+      "Complete JSON-RPC API over HTTP and WebSocket. Create, sign, encrypt — all via API",
+    icon: "json-rpc",
+  },
+  {
+    title: "Built-in Encryption",
+    description:
+      "Diffie-Hellman memo-style encrypt/decrypt. Secure messaging without extra libraries",
+    icon: "encryption",
+  },
+];
+---
+
+<section id="features" aria-labelledby="features-heading" class="px-4 py-24">
+  <div class="mx-auto max-w-6xl">
+    {/* Section header */}
+    <div class="mb-16 text-center">
+      <span
+        class="inline-block rounded-full bg-accent-muted px-3 py-1 text-sm text-accent"
+      >
+        Features
+      </span>
+      <h2 id="features-heading" class="mt-4 text-3xl font-bold text-text-primary md:text-4xl">
+        Everything you need for secure key management
+      </h2>
+      <p class="mt-4 text-text-secondary">
+        Battle-tested wallet daemon trusted by the Hive ecosystem
+      </p>
+    </div>
+
+    {/* Feature cards grid */}
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        features.map((feature, i) => (
+          <div
+            class="feature-card group rounded-xl border border-border-subtle bg-bg-elevated p-6 transition duration-500 hover:border-accent/30"
+            style={`transition-delay: ${i * 50}ms`}
+          >
+            <div class="mb-4 text-accent">
+              {feature.icon === "dual-build" && (
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="2" y="2" width="8" height="8" rx="1" />
+                  <rect x="14" y="14" width="8" height="8" rx="1" />
+                  <path d="M6 10v4h4M18 10V6h-4" />
+                </svg>
+              )}
+              {feature.icon === "key-isolation" && (
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7l-9-5z" />
+                  <rect x="9.5" y="10" width="5" height="6" rx="0.5" />
+                  <path d="M10.5 10V8a1.5 1.5 0 0 1 3 0v2" />
+                </svg>
+              )}
+              {feature.icon === "sessions" && (
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="9" cy="7" r="3" />
+                  <path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" />
+                  <circle cx="18" cy="9" r="2.5" />
+                  <path d="M21 21v-1.5a3 3 0 0 0-3-3h-.5" />
+                </svg>
+              )}
+              {feature.icon === "auto-lock" && (
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 6v6l4 2" />
+                  <path d="M4.5 4.5l1.5 1.5M19.5 4.5l-1.5 1.5" />
+                </svg>
+              )}
+              {feature.icon === "json-rpc" && (
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="3" y="4" width="18" height="16" rx="2" />
+                  <path d="M7 8l-2 4 2 4" />
+                  <path d="M17 8l2 4-2 4" />
+                  <path d="M14 8l-4 8" />
+                </svg>
+              )}
+              {feature.icon === "encryption" && (
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M2 12h4l2-3 3 6 2-6 2 3h4" />
+                  <rect x="15" y="2" width="7" height="5" rx="1" />
+                  <rect x="2" y="17" width="7" height="5" rx="1" />
+                  <path d="M18.5 7v3.5a1 1 0 0 1-1 1h-6" />
+                  <path d="M5.5 17v-3.5a1 1 0 0 1 1-1h6" />
+                </svg>
+              )}
+            </div>
+            <h3 class="mb-2 text-lg font-bold text-text-primary">
+              {feature.title}
+            </h3>
+            <p class="text-sm leading-relaxed text-text-secondary">
+              {feature.description}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .feature-card {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+
+  .feature-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .feature-card {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const cards = document.querySelectorAll(".feature-card");
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (prefersReducedMotion) {
+    cards.forEach((c) => c.classList.add("visible"));
+  } else {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("visible");
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    cards.forEach((c) => observer.observe(c));
+  }
+</script>
