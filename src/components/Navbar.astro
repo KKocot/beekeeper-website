@@ -4,9 +4,10 @@ import MobileNav from "./MobileNav.tsx";
 const navLinks = [
   { label: "Features", href: "#features" },
   { label: "Architecture", href: "#architecture" },
-  { label: "Getting Started", href: "#getting-started" },
-  { label: "Endpoints", href: "#endpoints" },
   { label: "API", href: "#api" },
+  { label: "Endpoints", href: "#endpoints" },
+  { label: "Comparison", href: "#comparison" },
+  { label: "Getting Started", href: "#getting-started" },
 ];
 ---
 
@@ -133,9 +134,10 @@ const navLinks = [
   const sectionIds = [
     "features",
     "architecture",
-    "getting-started",
-    "endpoints",
     "api",
+    "endpoints",
+    "comparison",
+    "getting-started",
   ];
   const navLinksEl =
     navbar?.querySelectorAll<HTMLAnchorElement>("nav.hidden a.nav-link") ?? [];

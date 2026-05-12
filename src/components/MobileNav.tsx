@@ -3,9 +3,10 @@ import { createSignal, onMount, onCleanup, type Component } from "solid-js";
 const navLinks = [
   { label: "Features", href: "#features" },
   { label: "Architecture", href: "#architecture" },
-  { label: "Getting Started", href: "#getting-started" },
-  { label: "Endpoints", href: "#endpoints" },
   { label: "API", href: "#api" },
+  { label: "Endpoints", href: "#endpoints" },
+  { label: "Comparison", href: "#comparison" },
+  { label: "Getting Started", href: "#getting-started" },
 ] as const;
 
 const MobileNav: Component = () => {
