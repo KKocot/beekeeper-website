@@ -1,4 +1,4 @@
-import { createSignal, type Component } from "solid-js";
+import { createSignal, onMount, onCleanup, type Component } from "solid-js";
 
 const navLinks = [
   { label: "Features", href: "#features" },
@@ -10,9 +10,22 @@ const navLinks = [
 
 const MobileNav: Component = () => {
   const [isOpen, setIsOpen] = createSignal(false);
+  const [activeSection, setActiveSection] = createSignal("");
 
   const toggle = () => setIsOpen((prev) => !prev);
   const close = () => setIsOpen(false);
+
+  const handleSectionChange = (e: Event) => {
+    const detail = (e as CustomEvent<{ section: string }>).detail;
+    setActiveSection(detail.section);
+  };
+
+  onMount(() => {
+    window.addEventListener("sectionchange", handleSectionChange);
+    onCleanup(() => {
+      window.removeEventListener("sectionchange", handleSectionChange);
+    });
+  });
 
   return (
     <div class="md:hidden">
@@ -58,7 +71,11 @@ const MobileNav: Component = () => {
               <a
                 href={link.href}
                 onClick={close}
-                class="py-3 text-base text-text-secondary transition hover:text-text-primary"
+                class={`border-l-2 py-3 pl-3 text-base transition hover:text-text-primary ${
+                  activeSection() === link.href.slice(1)
+                    ? "border-accent text-text-primary"
+                    : "border-transparent text-text-secondary"
+                }`}
               >
                 {link.label}
               </a>
