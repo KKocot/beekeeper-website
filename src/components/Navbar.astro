@@ -72,7 +72,7 @@ const navLinks = [
         navLinks.map((link) => (
           <a
             href={link.href}
-            class="text-sm text-text-secondary transition hover:text-text-primary"
+            class="nav-link border-b-2 border-transparent pb-0.5 text-sm text-text-secondary transition hover:text-text-primary"
           >
             {link.label}
           </a>
@@ -129,4 +129,48 @@ const navLinks = [
 
   handleScroll();
   window.addEventListener("scroll", handleScroll, { passive: true });
+
+  const sectionIds = [
+    "features",
+    "architecture",
+    "getting-started",
+    "endpoints",
+    "api",
+  ];
+  const navLinksEl =
+    navbar?.querySelectorAll<HTMLAnchorElement>("nav.hidden a.nav-link") ?? [];
+  const activeClasses = ["text-text-primary", "border-accent"];
+  const inactiveClasses = ["text-text-secondary", "border-transparent"];
+
+  function setActiveLink(id: string) {
+    navLinksEl.forEach((link) => {
+      const isMatch = link.getAttribute("href") === `#${id}`;
+      if (isMatch) {
+        link.classList.remove(...inactiveClasses);
+        link.classList.add(...activeClasses);
+      } else {
+        link.classList.remove(...activeClasses);
+        link.classList.add(...inactiveClasses);
+      }
+    });
+    window.dispatchEvent(
+      new CustomEvent("sectionchange", { detail: { section: id } })
+    );
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          setActiveLink(entry.target.id);
+        }
+      }
+    },
+    { rootMargin: "-20% 0px -75% 0px", threshold: 0 }
+  );
+
+  sectionIds.forEach((id) => {
+    const section = document.getElementById(id);
+    if (section) observer.observe(section);
+  });
 </script>
