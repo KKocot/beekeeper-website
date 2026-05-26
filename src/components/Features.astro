@@ -69,8 +69,8 @@ const features = [
               <div class="mt-0.5 shrink-0 text-accent">
                 {feature.icon === "dual-build" && (
                   <svg
-                    width="24"
-                    height="24"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -86,8 +86,8 @@ const features = [
                 )}
                 {feature.icon === "key-isolation" && (
                   <svg
-                    width="24"
-                    height="24"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -103,8 +103,8 @@ const features = [
                 )}
                 {feature.icon === "sessions" && (
                   <svg
-                    width="24"
-                    height="24"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -121,8 +121,8 @@ const features = [
                 )}
                 {feature.icon === "auto-lock" && (
                   <svg
-                    width="24"
-                    height="24"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -138,8 +138,8 @@ const features = [
                 )}
                 {feature.icon === "json-rpc" && (
                   <svg
-                    width="24"
-                    height="24"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -156,8 +156,8 @@ const features = [
                 )}
                 {feature.icon === "encryption" && (
                   <svg
-                    width="24"
-                    height="24"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -175,8 +175,8 @@ const features = [
                 )}
                 {feature.icon === "python-sdk" && (
                   <svg
-                    width="24"
-                    height="24"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -216,7 +216,7 @@ const features = [
 <style>
   .feature-item {
     opacity: 0;
-    transform: translateY(1rem);
+    transform: translateY(0.75rem);
   }
 
   .feature-item.visible {
@@ -256,7 +256,7 @@ const features = [
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.15 }
     );
     items.forEach((el) => observer.observe(el));
   }
