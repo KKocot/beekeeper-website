@@ -18,7 +18,8 @@ const MobileNav: Component = () => {
 
   const handleSectionChange = (e: Event) => {
     const detail = (e as CustomEvent<{ section: string }>).detail;
-    setActiveSection(detail.section);
+    // When hero is active, clear active state (hero has no nav link)
+    setActiveSection(detail.section === "hero" ? "" : detail.section);
   };
 
   onMount(() => {

@@ -147,6 +147,7 @@ const navLinks = [
   window.addEventListener("scroll", handleScroll, { passive: true });
 
   const sectionIds = [
+    "hero",
     "features",
     "architecture",
     "api",
@@ -159,17 +160,28 @@ const navLinks = [
   const activeClasses = ["text-text-primary", "border-accent"];
   const inactiveClasses = ["text-text-secondary", "border-transparent"];
 
-  function setActiveLink(id: string) {
+  function clearActiveLinks() {
     navLinksEl.forEach((link) => {
-      const isMatch = link.getAttribute("href") === `#${id}`;
-      if (isMatch) {
-        link.classList.remove(...inactiveClasses);
-        link.classList.add(...activeClasses);
-      } else {
-        link.classList.remove(...activeClasses);
-        link.classList.add(...inactiveClasses);
-      }
+      link.classList.remove(...activeClasses);
+      link.classList.add(...inactiveClasses);
     });
+  }
+
+  function setActiveLink(id: string) {
+    if (id === "hero") {
+      clearActiveLinks();
+    } else {
+      navLinksEl.forEach((link) => {
+        const isMatch = link.getAttribute("href") === `#${id}`;
+        if (isMatch) {
+          link.classList.remove(...inactiveClasses);
+          link.classList.add(...activeClasses);
+        } else {
+          link.classList.remove(...activeClasses);
+          link.classList.add(...inactiveClasses);
+        }
+      });
+    }
     window.dispatchEvent(
       new CustomEvent("sectionchange", { detail: { section: id } })
     );
@@ -183,7 +195,7 @@ const navLinks = [
         }
       }
     },
-    { rootMargin: "-20% 0px -75% 0px", threshold: 0 }
+    { rootMargin: "-15% 0px -75% 0px", threshold: 0 }
   );
 
   sectionIds.forEach((id) => {

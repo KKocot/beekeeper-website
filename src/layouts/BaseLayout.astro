@@ -57,5 +57,28 @@ const ogImage = "https://beekeeper.hive.io/og-image.png";
       <slot />
     </main>
     <Footer />
+
+    <script>
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      document.querySelectorAll<HTMLElement>(".section-reveal").forEach((el) => {
+        if (prefersReducedMotion) {
+          el.classList.add("visible");
+          return;
+        }
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          },
+          { threshold: 0.1 }
+        );
+        observer.observe(el);
+      });
+    </script>
   </body>
 </html>

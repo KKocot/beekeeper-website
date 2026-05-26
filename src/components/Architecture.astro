@@ -1,7 +1,7 @@
 ---
 ---
 
-<section id="architecture" aria-labelledby="architecture-heading" class="py-24 px-4">
+<section id="architecture" aria-labelledby="architecture-heading" class="section-reveal py-24 px-4">
   <!-- Header -->
   <div class="text-center mb-16">
     <h2 id="architecture-heading" class="text-3xl md:text-4xl font-bold text-text-primary">
@@ -135,7 +135,7 @@
   /* === Connecting lines === */
   .arch-line--vertical {
     width: 1px;
-    height: 2rem;
+    height: 1.25rem;
     background-color: var(--color-border-subtle);
     margin: 0 auto;
   }
@@ -176,7 +176,7 @@
     .arch-line--drop-center,
     .arch-line--drop-right {
       width: 1px;
-      height: 1rem;
+      height: 0.75rem;
       background-color: var(--color-border-subtle);
     }
 
@@ -227,10 +227,8 @@
       display: none;
     }
 
-    /* Hide the top-level vertical connector below core on desktop
-       (replaced by horizontal T-split) */
-    .arch-diagram > .flex.justify-center + .flex.justify-center {
-      display: none;
+    .arch-diagram > .flex.justify-center + .flex.justify-center .arch-line--vertical {
+      height: 0.75rem;
     }
   }
 
