@@ -81,30 +81,28 @@ const MobileNav: Component = () => {
                 {link.label}
               </a>
             ))}
-            <div class="mt-3 flex items-center justify-center gap-4 border-t border-border-subtle pt-3">
+            <div class="mt-3 flex items-center justify-center gap-6 border-t border-border-subtle pt-3">
               <a
                 href="https://gitlab.syncad.com/hive/beekeeper"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={close}
-                class="flex items-center gap-2 text-sm text-text-secondary transition hover:text-accent"
+                aria-label="GitLab Repository"
+                class="text-text-secondary transition-colors duration-150 hover:text-accent"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M23.955 13.587l-1.342-4.135-2.664-8.189a.455.455 0 0 0-.867 0L16.418 9.45H7.582L4.918 1.263a.455.455 0 0 0-.867 0L1.387 9.452.045 13.587a.924.924 0 0 0 .331 1.023L12 23.054l11.624-8.443a.92.92 0 0 0 .331-1.024"/>
-                </svg>
-                GitLab
+                <svg class="size-7" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 30.4L21.3 14.1H10.7L16 30.4Z"/><path d="M16 30.4L10.7 14.1H2.4L16 30.4Z" opacity="0.7"/><path d="M2.4 14.1L0.5 20.1C0.3 20.7 0.5 21.4 1 21.8L16 30.4L2.4 14.1Z" opacity="0.5"/><path d="M2.4 14.1H10.7L7.4 3.9C7.2 3.3 6.4 3.3 6.2 3.9L2.4 14.1Z"/><path d="M16 30.4L21.3 14.1H29.6L16 30.4Z" opacity="0.7"/><path d="M29.6 14.1L31.5 20.1C31.7 20.7 31.5 21.4 31 21.8L16 30.4L29.6 14.1Z" opacity="0.5"/><path d="M29.6 14.1H21.3L24.6 3.9C24.8 3.3 25.6 3.3 25.8 3.9L29.6 14.1Z"/></svg>
               </a>
               <a
                 href="https://www.npmjs.com/package/@hiveio/beekeeper"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={close}
-                class="flex items-center gap-2 text-sm text-text-secondary transition hover:text-accent"
+                aria-label="npm Package"
+                class="text-text-secondary transition-colors duration-150 hover:text-accent"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <svg class="size-7" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.331h-2.669zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331zM10.665 10H12v2.667h-1.335V10z"/>
                 </svg>
-                npm
               </a>
             </div>
           </nav>

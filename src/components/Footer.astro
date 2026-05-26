@@ -1,41 +1,56 @@
 ---
-const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-border-subtle bg-bg-elevated">
+<footer class="border-t border-border-subtle bg-bg-elevated" role="contentinfo">
   <div class="mx-auto flex min-h-8 max-w-6xl flex-wrap items-center justify-center px-6 py-2 font-mono text-xs text-text-secondary">
     <a
       href="https://gitlab.syncad.com/hive/beekeeper"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Beekeeper repository (opens in new tab)"
-      class="rounded-sm text-text-secondary transition hover:text-accent focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+      class="rounded-sm text-text-secondary transition-[color,text-shadow] duration-150 hover:text-accent hover:[text-shadow:0_0_8px_var(--color-accent)] focus-visible:text-accent focus-visible:[text-shadow:0_0_8px_var(--color-accent)] focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
     >
       [beekeeper]
     </a>
-    <span class="px-2 text-text-tertiary" aria-hidden="true">│</span>
-    <span>&copy; {year}</span>
-    <span class="px-2 text-text-tertiary" aria-hidden="true">│</span>
+    <span class="px-2 text-text-tertiary select-none" aria-hidden="true">|</span>
     <a
-      href="https://gitlab.syncad.com/hive/beekeeper/-/blob/develop/LICENSE.md"
+      href="https://gitlab.syncad.com/hive/beekeeper/-/blob/master/LICENSE.md"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="MIT License (opens in new tab)"
-      class="rounded-sm text-text-secondary transition hover:text-accent focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+      class="rounded-sm text-text-secondary transition-[color,text-shadow] duration-150 hover:text-accent hover:[text-shadow:0_0_8px_var(--color-accent)] focus-visible:text-accent focus-visible:[text-shadow:0_0_8px_var(--color-accent)] focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
     >
       MIT License
     </a>
-    <span class="px-2 text-text-tertiary" aria-hidden="true">│</span>
+    <span class="px-2 text-text-tertiary select-none" aria-hidden="true">|</span>
     <a
       href="https://hive.io"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Hive blockchain (opens in new tab)"
-      class="rounded-sm text-text-secondary transition hover:text-accent focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+      class="rounded-sm text-text-secondary transition-[color,text-shadow] duration-150 hover:text-accent hover:[text-shadow:0_0_8px_var(--color-accent)] focus-visible:text-accent focus-visible:[text-shadow:0_0_8px_var(--color-accent)] focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
     >
-      built for <span class="font-semibold text-accent">hive</span>
+      Hive
     </a>
-    <span class="px-2 text-text-tertiary" aria-hidden="true">│</span>
-    <span class="text-success" aria-label="Status: online">●</span>
+    <span class="px-2 text-text-tertiary select-none" aria-hidden="true">|</span>
+    <a
+      href="https://www.npmjs.com/package/@hiveio/beekeeper"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="npm package (opens in new tab)"
+      class="rounded-sm text-text-secondary transition-[color,text-shadow] duration-150 hover:text-accent hover:[text-shadow:0_0_8px_var(--color-accent)] focus-visible:text-accent focus-visible:[text-shadow:0_0_8px_var(--color-accent)] focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+    >
+      npm
+    </a>
+    <span class="px-2 text-text-tertiary select-none" aria-hidden="true">|</span>
+    <a
+      href="https://blockchainwares.com.pl/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Blockchain Wares (opens in new tab)"
+      class="rounded-sm text-text-secondary transition-[color,text-shadow] duration-150 hover:text-accent hover:[text-shadow:0_0_8px_var(--color-accent)] focus-visible:text-accent focus-visible:[text-shadow:0_0_8px_var(--color-accent)] focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+    >
+      Blockchain Wares
+    </a>
   </div>
 </footer>
