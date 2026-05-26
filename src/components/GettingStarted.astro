@@ -1,32 +1,87 @@
 ---
-const steps = [
+interface CodeVariant {
+  lang: string;
+  label: string;
+  code: string;
+  badge?: string;
+}
+
+interface Step {
+  number: number;
+  title: string;
+  description: string;
+  variants: CodeVariant[];
+}
+
+const steps: Step[] = [
   {
     number: 1,
     title: "Install the package",
     description:
       "Add Beekeeper to your project with your package manager of choice",
-    lang: "bash",
-    code: `<span class="text-accent">npm</span> <span class="text-text-primary">install @hiveio/beekeeper</span>`,
+    variants: [
+      {
+        lang: "bash",
+        label: "npm",
+        code: `<span class="text-accent">npm</span> <span class="text-text-primary">install @hiveio/beekeeper</span>`,
+      },
+      {
+        lang: "bash",
+        label: "pip",
+        badge: "Linux only",
+        code: `<span class="text-accent">pip</span> <span class="text-text-primary">install hiveio-beekeepy</span>`,
+      },
+    ],
   },
   {
     number: 2,
     title: "Create a wallet",
     description: "Initialize Beekeeper and create an encrypted wallet",
-    lang: "typescript",
-    code: `<span class="text-[#C792EA]">import</span> <span class="text-text-primary">{ </span><span class="text-[#82AAFF]">createBeekeeper</span><span class="text-text-primary"> }</span> <span class="text-[#C792EA]">from</span> <span class="text-accent">"@hiveio/beekeeper"</span><span class="text-text-primary">;</span>
+    variants: [
+      {
+        lang: "typescript",
+        label: "TypeScript",
+        code: `<span class="text-[#C792EA]">import</span> <span class="text-text-primary">{ </span><span class="text-[#82AAFF]">createBeekeeper</span><span class="text-text-primary"> }</span> <span class="text-[#C792EA]">from</span> <span class="text-accent">"@hiveio/beekeeper"</span><span class="text-text-primary">;</span>
 
 <span class="text-[#C792EA]">const</span> <span class="text-text-primary">beekeeper =</span> <span class="text-[#C792EA]">await</span> <span class="text-[#82AAFF]">createBeekeeper</span><span class="text-text-primary">();</span>
 <span class="text-[#C792EA]">const</span> <span class="text-text-primary">session = beekeeper.</span><span class="text-[#82AAFF]">createSession</span><span class="text-text-primary">(</span><span class="text-accent">"salt"</span><span class="text-text-primary">);</span>
 <span class="text-[#C792EA]">const</span> <span class="text-text-primary">wallet =</span> <span class="text-[#C792EA]">await</span> <span class="text-text-primary">session.</span><span class="text-[#82AAFF]">createWallet</span><span class="text-text-primary">(</span><span class="text-accent">"my_wallet"</span><span class="text-text-primary">,</span> <span class="text-accent">"pass"</span><span class="text-text-primary">);</span>`,
+      },
+      {
+        lang: "python",
+        label: "Python",
+        badge: "Linux only",
+        code: `<span class="text-[#C792EA]">from</span> <span class="text-text-primary">beekeepy</span> <span class="text-[#C792EA]">import</span> <span class="text-text-primary">Beekeeper</span>
+
+<span class="text-[#C792EA]">with</span> <span class="text-text-primary">Beekeeper.</span><span class="text-[#82AAFF]">factory</span><span class="text-text-primary">()</span> <span class="text-[#C792EA]">as</span> <span class="text-text-primary">bk:</span>
+<span class="text-text-primary">    session = bk.</span><span class="text-[#82AAFF]">create_session</span><span class="text-text-primary">(</span><span class="text-accent">"my_session"</span><span class="text-text-primary">)</span>
+<span class="text-text-primary">    wallet = session.</span><span class="text-[#82AAFF]">create_wallet</span><span class="text-text-primary">(</span><span class="text-accent">"my_wallet"</span><span class="text-text-primary">, password=</span><span class="text-accent">"secret"</span><span class="text-text-primary">)</span>`,
+      },
+    ],
   },
   {
     number: 3,
     title: "Sign transactions",
     description: "Import keys and sign transaction digests securely",
-    lang: "typescript",
-    code: `<span class="text-[#C792EA]">await</span> <span class="text-text-primary">wallet.</span><span class="text-[#82AAFF]">importKey</span><span class="text-text-primary">(</span><span class="text-accent">"5JkFnXrLM2ap..."</span><span class="text-text-primary">);</span>
+    variants: [
+      {
+        lang: "typescript",
+        label: "TypeScript",
+        code: `<span class="text-[#C792EA]">await</span> <span class="text-text-primary">wallet.</span><span class="text-[#82AAFF]">importKey</span><span class="text-text-primary">(</span><span class="text-accent">"5JkFnXrLM2ap..."</span><span class="text-text-primary">);</span>
 <span class="text-[#C792EA]">const</span> <span class="text-text-primary">sig = wallet.</span><span class="text-[#82AAFF]">signDigest</span><span class="text-text-primary">(</span><span class="text-accent">"9a37a3..."</span><span class="text-text-primary">);</span>
 <span class="text-text-primary">console.</span><span class="text-[#82AAFF]">log</span><span class="text-text-primary">(sig.value);</span>`,
+      },
+      {
+        lang: "python",
+        label: "Python",
+        badge: "Linux only",
+        code: `<span class="text-text-primary">public_key = wallet.</span><span class="text-[#82AAFF]">import_key</span><span class="text-text-primary">(</span><span class="text-accent">"5JkFnXrLM2ap..."</span><span class="text-text-primary">)</span>
+<span class="text-text-primary">sig = wallet.</span><span class="text-[#82AAFF]">sign_digest</span><span class="text-text-primary">(</span>
+<span class="text-text-primary">    digest=</span><span class="text-accent">"9a37a3..."</span><span class="text-text-primary">,</span>
+<span class="text-text-primary">    public_key=public_key</span>
+<span class="text-text-primary">)</span>`,
+      },
+    ],
   },
 ];
 ---
@@ -66,14 +121,48 @@ const steps = [
             {/* Description */}
             <p class="mt-2 ml-11 text-text-secondary">{step.description}</p>
 
-            {/* Code block */}
-            <div class="mt-4 ml-11 overflow-hidden rounded-lg border border-border-subtle bg-code-bg">
-              {/* Code block header */}
-              <div class="flex items-center justify-between border-b border-border-subtle px-4 py-2">
-                <span class="text-xs text-text-tertiary">{step.lang}</span>
+            {/* Code block with tabs */}
+            <div class="mt-4 ml-11 overflow-hidden rounded-lg border border-border-subtle bg-code-bg" data-qs-tabs>
+              {/* Tab bar */}
+              <div class="flex items-center border-b border-border-subtle" role="tablist" aria-label={`Code variants for step ${step.number}`}>
+                {step.variants.map((variant, i) => (
+                  <button
+                    type="button"
+                    class={`qs-tab px-4 py-2 text-sm font-medium transition-colors ${
+                      i === 0
+                        ? "border-b-2 border-accent text-accent"
+                        : "text-text-tertiary hover:text-text-secondary"
+                    }`}
+                    id={`qs-tab-${step.number}-${i}`}
+                    data-qs-tab-index={i}
+                    aria-selected={i === 0 ? "true" : "false"}
+                    aria-controls={`qs-panel-${step.number}-${i}`}
+                    tabindex={i === 0 ? 0 : -1}
+                    role="tab"
+                  >
+                    {variant.label}
+                    {variant.badge && (
+                      <span class="ml-1.5 inline-block align-middle rounded-full bg-bg-subtle px-2 py-0.5 text-[0.625rem] font-normal text-text-tertiary">
+                        {variant.badge}
+                      </span>
+                    )}
+                  </button>
+                ))}
               </div>
-              {/* Code content */}
-              <pre class="overflow-x-auto p-4 font-mono text-sm leading-relaxed"><code set:html={step.code} /></pre>
+              {/* Tab panels */}
+              {step.variants.map((variant, i) => (
+                <div
+                  class={`qs-panel ${i === 0 ? "" : "hidden"}`}
+                  id={`qs-panel-${step.number}-${i}`}
+                  data-qs-panel-index={i}
+                  role="tabpanel"
+                  aria-labelledby={`qs-tab-${step.number}-${i}`}
+                  aria-hidden={i !== 0 ? "true" : "false"}
+                  tabindex={0}
+                >
+                  <pre class="overflow-x-auto p-4 font-mono text-sm leading-relaxed"><code set:html={variant.code} /></pre>
+                </div>
+              ))}
             </div>
           </div>
         ))
@@ -118,6 +207,7 @@ const steps = [
 </style>
 
 <script>
+  // --- Scroll reveal ---
   const stepCards = document.querySelectorAll(".step-card");
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
@@ -139,4 +229,71 @@ const steps = [
     );
     stepCards.forEach((c) => observer.observe(c));
   }
+
+  // --- Tab switching ---
+  document.querySelectorAll("[data-qs-tabs]").forEach((container) => {
+    const tabs = Array.from(
+      container.querySelectorAll<HTMLButtonElement>(".qs-tab")
+    );
+    const panels = container.querySelectorAll<HTMLElement>(".qs-panel");
+
+    function activateTab(index: number) {
+      const targetIndex = String(index);
+
+      // Update tab states
+      tabs.forEach((t, i) => {
+        const isActive = i === index;
+        t.classList.toggle("border-b-2", isActive);
+        t.classList.toggle("border-accent", isActive);
+        t.classList.toggle("text-accent", isActive);
+        t.classList.toggle("text-text-tertiary", !isActive);
+        t.setAttribute("aria-selected", isActive ? "true" : "false");
+        t.setAttribute("tabindex", isActive ? "0" : "-1");
+      });
+
+      // Update panel visibility
+      panels.forEach((p) => {
+        const isActive = p.dataset.qsPanelIndex === targetIndex;
+        p.classList.toggle("hidden", !isActive);
+        p.setAttribute("aria-hidden", isActive ? "false" : "true");
+      });
+    }
+
+    // Click handler
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => {
+        activateTab(i);
+      });
+    });
+
+    // Keyboard navigation (Arrow Left/Right, Home, End)
+    const tablist = container.querySelector<HTMLElement>('[role="tablist"]');
+    tablist?.addEventListener("keydown", (e: KeyboardEvent) => {
+      const currentIndex = tabs.findIndex((t) => t === document.activeElement);
+      if (currentIndex === -1) return;
+
+      let nextIndex: number | null = null;
+
+      switch (e.key) {
+        case "ArrowRight":
+          nextIndex = (currentIndex + 1) % tabs.length;
+          break;
+        case "ArrowLeft":
+          nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+          break;
+        case "Home":
+          nextIndex = 0;
+          break;
+        case "End":
+          nextIndex = tabs.length - 1;
+          break;
+        default:
+          return;
+      }
+
+      e.preventDefault();
+      activateTab(nextIndex);
+      tabs[nextIndex].focus();
+    });
+  });
 </script>

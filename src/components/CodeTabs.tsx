@@ -19,28 +19,22 @@ const signature = wallet.signDigest(
 
 console.log(signature.value);`;
 
-const cliCode = `# Start the daemon
-./beekeeper --webserver-http-endpoint=127.0.0.1:5001
+const pyCode = `from beekeepy import Beekeeper
 
-# Create a session
-curl -s http://127.0.0.1:5001 -d '{
-  "jsonrpc": "2.0",
-  "method": "beekeeper_api.create_session",
-  "params": { "salt": "my.salt" },
-  "id": 1
-}'
+with Beekeeper.factory() as beekeeper, \\
+    beekeeper.create_session() as session, \\
+    session.create_wallet(name="my_wallet", password="secret") as wallet:
 
-# Create a wallet
-curl -s http://127.0.0.1:5001 -d '{
-  "jsonrpc": "2.0",
-  "method": "beekeeper_api.create",
-  "params": {
-    "token": "SESSION_TOKEN",
-    "wallet_name": "my_wallet",
-    "password": "password123"
-  },
-  "id": 2
-}'`;
+    # Import a private key
+    public_key = wallet.import_key(
+        private_key="5JkFnXrLM2ap9t3AmAxBJvQHF7xSKtnTrCTginQCkhzU5Ls5Kgz"
+    )
+
+    # Sign a transaction digest
+    signature = wallet.sign_digest(
+        digest="9a37a3a1e800f498035464c3e21e377a7a18dead30a8e01a68ca54860a1ed4ca",
+        public_key=public_key
+    )`;
 
 const httpCode = `// Sign a digest
 POST http://127.0.0.1:5001
@@ -111,31 +105,25 @@ function TsHighlighted(): JSX.Element {
   );
 }
 
-function CliHighlighted(): JSX.Element {
+function PythonHighlighted(): JSX.Element {
   return (
     <>
-      {cmt("# Start the daemon")}{"\n"}
-      {plain("./beekeeper --webserver-http-endpoint=127.0.0.1:5001")}{"\n"}
+      {kw("from")} {plain("beekeepy ")} {kw("import")} {plain("Beekeeper")}{"\n"}
       {"\n"}
-      {cmt("# Create a session")}{"\n"}
-      {plain("curl -s http://127.0.0.1:5001 -d ")}{str("'{")} {"\n"}
-      {str('  "jsonrpc": "2.0",')} {"\n"}
-      {str('  "method": "beekeeper_api.create_session",')} {"\n"}
-      {str('  "params": { "salt": "my.salt" },')} {"\n"}
-      {str('  "id": 1')} {"\n"}
-      {str("}'")}{"\n"}
+      {kw("with")} {plain("Beekeeper.")}{fn("factory")}{plain("() ")}{kw("as")} {plain("beekeeper, \\")}{"\n"}
+      {plain("    beekeeper.")}{fn("create_session")}{plain("() ")}{kw("as")} {plain("session, \\")}{"\n"}
+      {plain("    session.")}{fn("create_wallet")}{plain("(")}{plain("name=")}{str('"my_wallet"')}{plain(", password=")}{str('"secret"')}{plain(") ")}{kw("as")} {plain("wallet:")}{"\n"}
       {"\n"}
-      {cmt("# Create a wallet")}{"\n"}
-      {plain("curl -s http://127.0.0.1:5001 -d ")}{str("'{")} {"\n"}
-      {str('  "jsonrpc": "2.0",')} {"\n"}
-      {str('  "method": "beekeeper_api.create",')} {"\n"}
-      {str('  "params": {')} {"\n"}
-      {str('    "token": "SESSION_TOKEN",')} {"\n"}
-      {str('    "wallet_name": "my_wallet",')} {"\n"}
-      {str('    "password": "password123"')} {"\n"}
-      {str("  },")} {"\n"}
-      {str('  "id": 2')} {"\n"}
-      {str("}'")}
+      {cmt("    # Import a private key")}{"\n"}
+      {plain("    public_key = wallet.")}{fn("import_key")}{plain("(")}{"\n"}
+      {plain("        private_key=")}{str('"5JkFnXrLM2ap9t3AmAxBJvQHF7xSKtnTrCTginQCkhzU5Ls5Kgz"')}{"\n"}
+      {plain("    )")}{"\n"}
+      {"\n"}
+      {cmt("    # Sign a transaction digest")}{"\n"}
+      {plain("    signature = wallet.")}{fn("sign_digest")}{plain("(")}{"\n"}
+      {plain("        digest=")}{str('"9a37a3a1e800f498035464c3e21e377a7a18dead30a8e01a68ca54860a1ed4ca"')}{plain(",")}{"\n"}
+      {plain("        public_key=public_key")}{"\n"}
+      {plain("    )")}
     </>
   );
 }
@@ -172,6 +160,7 @@ function HttpHighlighted(): JSX.Element {
 
 interface Tab {
   label: string;
+  badge?: string;
   lang: string;
   raw: string;
   highlighted: () => JSX.Element;
@@ -179,7 +168,7 @@ interface Tab {
 
 const tabs: Tab[] = [
   { label: "TypeScript", lang: "typescript", raw: tsCode, highlighted: TsHighlighted },
-  { label: "CLI", lang: "bash", raw: cliCode, highlighted: CliHighlighted },
+  { label: "Python", badge: "Linux only", lang: "python", raw: pyCode, highlighted: PythonHighlighted },
   { label: "HTTP API", lang: "json", raw: httpCode, highlighted: HttpHighlighted },
 ];
 
@@ -275,6 +264,11 @@ const CodeTabs: Component = () => {
               role="tab"
             >
               {tab.label}
+              <Show when={tab.badge}>
+                <span class="ml-1.5 rounded-full bg-accent-muted px-1.5 py-0.5 text-[0.625rem] font-medium leading-none text-accent">
+                  {tab.badge}
+                </span>
+              </Show>
             </button>
           )}
         </For>

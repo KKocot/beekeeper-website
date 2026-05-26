@@ -8,15 +8,15 @@
       Architecture
     </span>
     <h2 id="architecture-heading" class="text-3xl md:text-4xl font-bold mt-4 text-text-primary">
-      One core, two targets
+      One core, three targets
     </h2>
     <p class="text-text-secondary mt-4 max-w-2xl mx-auto">
-      Shared C++ library powers both the native daemon and browser-ready WASM package
+      Shared C++ library powers the native daemon, browser-ready WASM package, and Python SDK
     </p>
   </div>
 
   <!-- Diagram -->
-  <div class="arch-diagram mx-auto max-w-4xl" id="arch-diagram">
+  <div class="arch-diagram mx-auto max-w-5xl" id="arch-diagram">
 
     <!-- Row 1: Shared Core -->
     <div class="flex justify-center">
@@ -37,9 +37,10 @@
       <div class="arch-line--horizontal"></div>
     </div>
 
-    <!-- Connector: two vertical drops (desktop) -->
+    <!-- Connector: three vertical drops (desktop) -->
     <div class="arch-split-drops">
       <div class="arch-line arch-line--drop-left arch-reveal-line" data-delay="200"></div>
+      <div class="arch-line arch-line--drop-center arch-reveal-line" data-delay="200"></div>
       <div class="arch-line arch-line--drop-right arch-reveal-line" data-delay="200"></div>
     </div>
 
@@ -67,10 +68,24 @@
           <p class="text-text-tertiary text-xs mt-2">@hiveio/beekeeper</p>
         </div>
       </div>
+      <div class="arch-branch">
+        <!-- Mobile connector -->
+        <div class="arch-mobile-connector">
+          <div class="arch-line arch-line--vertical arch-reveal-line" data-delay="200"></div>
+        </div>
+        <div class="arch-box arch-reveal" data-delay="300">
+          <p class="font-semibold text-text-primary">Python SDK</p>
+          <p class="text-text-secondary text-sm mt-1">Embedded C++ binary</p>
+          <p class="text-text-tertiary text-xs mt-2">hiveio-beekeepy</p>
+        </div>
+      </div>
     </div>
 
     <!-- Connectors: row 2 -> row 3 -->
     <div class="arch-row-pair-connectors">
+      <div class="arch-branch-connector">
+        <div class="arch-line arch-line--vertical arch-reveal-line" data-delay="450"></div>
+      </div>
       <div class="arch-branch-connector">
         <div class="arch-line arch-line--vertical arch-reveal-line" data-delay="450"></div>
       </div>
@@ -91,6 +106,12 @@
         <div class="arch-box arch-reveal" data-delay="600">
           <p class="font-semibold text-text-primary">Browser & Node.js</p>
           <p class="text-text-secondary text-sm mt-1">&lt; 274 KB bundle</p>
+        </div>
+      </div>
+      <div class="arch-branch">
+        <div class="arch-box arch-reveal" data-delay="600">
+          <p class="font-semibold text-text-primary">Linux &middot; Sync & Async</p>
+          <p class="text-text-secondary text-sm mt-1">PyPI package</p>
         </div>
       </div>
     </div>
@@ -139,7 +160,7 @@
     .arch-split {
       display: flex;
       justify-content: center;
-      padding: 0 calc(50% - 8rem);
+      padding: 0 calc(50% - 18rem);
     }
 
     .arch-line--horizontal {
@@ -150,27 +171,22 @@
 
     .arch-split-drops {
       display: flex;
-      justify-content: center;
-      padding: 0 calc(50% - 8rem);
+      justify-content: space-between;
+      padding: 0 calc(50% - 18rem);
     }
 
     .arch-line--drop-left,
+    .arch-line--drop-center,
     .arch-line--drop-right {
       width: 1px;
       height: 1rem;
       background-color: var(--color-border-subtle);
     }
 
-    .arch-split-drops {
-      display: flex;
-      justify-content: space-between;
-      padding: 0 calc(50% - 8rem);
-    }
-
     .arch-row-pair-connectors {
       display: flex;
       justify-content: center;
-      gap: 4rem;
+      gap: 2rem;
     }
 
     .arch-branch-connector {
@@ -200,7 +216,7 @@
     .arch-row-pair {
       flex-direction: row;
       justify-content: center;
-      gap: 4rem;
+      gap: 2rem;
     }
   }
 
@@ -257,6 +273,7 @@
 
   .arch-reveal-line .arch-line--vertical,
   .arch-reveal-line .arch-line--drop-left,
+  .arch-reveal-line .arch-line--drop-center,
   .arch-reveal-line .arch-line--drop-right {
     transform: scaleY(0);
     transform-origin: top center;
@@ -274,6 +291,7 @@
 
   .arch-diagram.visible .arch-reveal-line .arch-line--vertical,
   .arch-diagram.visible .arch-reveal-line .arch-line--drop-left,
+  .arch-diagram.visible .arch-reveal-line .arch-line--drop-center,
   .arch-diagram.visible .arch-reveal-line .arch-line--drop-right {
     animation: arch-line-grow 0.4s ease-out forwards;
   }
@@ -287,9 +305,11 @@
   .arch-diagram.visible [data-delay="150"] .arch-line--vertical,
   .arch-diagram.visible [data-delay="150"] .arch-line--horizontal,
   .arch-diagram.visible [data-delay="150"] .arch-line--drop-left,
+  .arch-diagram.visible [data-delay="150"] .arch-line--drop-center,
   .arch-diagram.visible [data-delay="150"] .arch-line--drop-right { animation-delay: 150ms; }
   .arch-diagram.visible [data-delay="200"] .arch-line--vertical,
   .arch-diagram.visible [data-delay="200"] .arch-line--drop-left,
+  .arch-diagram.visible [data-delay="200"] .arch-line--drop-center,
   .arch-diagram.visible [data-delay="200"] .arch-line--drop-right { animation-delay: 200ms; }
   .arch-diagram.visible [data-delay="300"] { animation-delay: 300ms; }
   .arch-diagram.visible [data-delay="450"] .arch-line--vertical { animation-delay: 450ms; }
@@ -304,6 +324,7 @@
 
     .arch-reveal-line .arch-line--vertical,
     .arch-reveal-line .arch-line--drop-left,
+    .arch-reveal-line .arch-line--drop-center,
     .arch-reveal-line .arch-line--drop-right {
       transform: scaleY(1);
       animation: none !important;

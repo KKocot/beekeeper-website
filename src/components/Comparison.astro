@@ -1,19 +1,30 @@
 ---
-const rows = [
-  { feature: "Encrypted wallet storage", beekeeper: true, manual: false },
-  { feature: "Auto-lock on inactivity", beekeeper: true, manual: false },
-  { feature: "Multi-session support", beekeeper: true, manual: false },
-  { feature: "HTTP/WebSocket API", beekeeper: true, manual: false },
-  { feature: "Browser WASM support", beekeeper: true, manual: false },
-  { feature: "Transaction signing", beekeeper: true, manual: true },
-  { feature: "Key import/export", beekeeper: true, manual: true },
-  { feature: "Memo encryption", beekeeper: true, manual: false },
-  { feature: "Bundle < 274 KB", beekeeper: true, manual: "na" },
+interface Row {
+  feature: string;
+  beekeeper: boolean | "na";
+  python: boolean | "na" | "limited";
+  manual: boolean | "na";
+}
+
+const rows: Row[] = [
+  { feature: "Encrypted wallet storage", beekeeper: true, python: true, manual: false },
+  { feature: "Auto-lock on inactivity", beekeeper: true, python: true, manual: false },
+  { feature: "Multi-session support", beekeeper: true, python: true, manual: false },
+  { feature: "HTTP/WebSocket API", beekeeper: true, python: true, manual: false },
+  { feature: "Browser WASM support", beekeeper: true, python: false, manual: false },
+  { feature: "Transaction signing", beekeeper: true, python: true, manual: true },
+  { feature: "Key import/export", beekeeper: true, python: true, manual: true },
+  { feature: "Memo encryption", beekeeper: true, python: true, manual: false },
+  { feature: "Bundle < 274 KB", beekeeper: true, python: "na", manual: "na" },
+  { feature: "Embedded binary (zero config)", beekeeper: "na", python: true, manual: false },
+  { feature: "Sync & Async API", beekeeper: true, python: true, manual: "na" },
+  { feature: "Full type hints", beekeeper: "na", python: true, manual: false },
+  { feature: "Cross-platform support", beekeeper: true, python: "limited", manual: true },
 ];
 ---
 
 <section id="comparison" aria-labelledby="comparison-heading" class="px-4 py-24">
-  <div class="mx-auto max-w-3xl">
+  <div class="mx-auto max-w-4xl">
     {/* Section header */}
     <div class="mb-16 text-center">
       <span
@@ -30,20 +41,29 @@ const rows = [
     <div
       class="comparison-table overflow-x-auto rounded-xl border border-border-subtle bg-bg-elevated"
     >
-      <table class="w-full min-w-[28rem]">
+      <table class="w-full min-w-[36rem]">
         <thead>
           <tr class="bg-bg-subtle">
             <th
+              scope="col"
               class="px-6 py-4 text-left text-sm font-medium uppercase tracking-wider text-text-secondary"
             >
               Feature
             </th>
             <th
+              scope="col"
               class="px-6 py-4 text-center text-sm font-semibold uppercase tracking-wider text-accent"
             >
               Beekeeper
             </th>
             <th
+              scope="col"
+              class="px-6 py-4 text-center text-sm font-semibold uppercase tracking-wider text-success"
+            >
+              Python SDK
+            </th>
+            <th
+              scope="col"
               class="px-6 py-4 text-center text-sm font-medium uppercase tracking-wider text-text-secondary"
             >
               Manual
@@ -63,9 +83,34 @@ const rows = [
                   {row.feature}
                 </td>
                 <td class="px-6 py-4 text-center">
-                  <span class="text-lg font-bold text-success" aria-label="Yes">
-                    &#10003;
-                  </span>
+                  {row.beekeeper === "na" ? (
+                    <span class="text-sm text-text-tertiary">N/A</span>
+                  ) : row.beekeeper ? (
+                    <span class="text-lg font-bold text-success" aria-label="Yes">
+                      &#10003;
+                    </span>
+                  ) : (
+                    <span class="text-lg font-bold text-error" aria-label="No">
+                      &#10007;
+                    </span>
+                  )}
+                </td>
+                <td class="px-6 py-4 text-center">
+                  {row.python === "na" ? (
+                    <span class="text-sm text-text-tertiary">N/A</span>
+                  ) : row.python === "limited" ? (
+                    <span class="text-sm font-medium text-accent" aria-label="Limited">
+                      Linux only
+                    </span>
+                  ) : row.python ? (
+                    <span class="text-lg font-bold text-success" aria-label="Yes">
+                      &#10003;
+                    </span>
+                  ) : (
+                    <span class="text-lg font-bold text-error" aria-label="No">
+                      &#10007;
+                    </span>
+                  )}
                 </td>
                 <td class="px-6 py-4 text-center">
                   {row.manual === "na" ? (

@@ -36,6 +36,12 @@ const features = [
       "Diffie-Hellman memo-style encrypt/decrypt. Secure messaging without extra libraries",
     icon: "encryption",
   },
+  {
+    title: "Python SDK",
+    description:
+      "Bundled beekeeper binary, zero config. Sync & async API with context managers. Full type hints, strict mypy compatible",
+    icon: "python-sdk",
+  },
 ];
 ---
 
@@ -61,7 +67,10 @@ const features = [
       {
         features.map((feature, i) => (
           <div
-            class="feature-card group rounded-xl border border-border-subtle bg-bg-elevated p-6 transition duration-500 hover:border-accent/30"
+            class:list={[
+              "feature-card group rounded-xl border border-border-subtle bg-bg-elevated p-6 transition duration-500 hover:border-accent/30",
+              i === features.length - 1 && features.length % 3 === 1 && "lg:col-start-2",
+            ]}
             style={`transition-delay: ${i * 50}ms`}
           >
             <div class="mb-4 text-accent">
@@ -171,9 +180,32 @@ const features = [
                   <path d="M5.5 17v-3.5a1 1 0 0 1 1-1h6" />
                 </svg>
               )}
+              {feature.icon === "python-sdk" && (
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M12 2c-1.7 0-3 .5-3.5 1.5V6c0 .8.7 1.5 1.5 1.5h4c.8 0 1.5.7 1.5 1.5v1H8.5C6.6 10 5 11.6 5 13.5v2c0 1 .5 1.5 1.5 1.5H9v-2c0-1.1.9-2 2-2h4c1.1 0 2-.9 2-2V6.5C17 4 14.5 2 12 2z" />
+                  <path d="M12 22c1.7 0 3-.5 3.5-1.5V18c0-.8-.7-1.5-1.5-1.5h-4c-.8 0-1.5-.7-1.5-1.5v-1h7c1.9 0 3.5-1.6 3.5-3.5v-2c0-1-.5-1.5-1.5-1.5H15v2c0 1.1-.9 2-2 2H9c-1.1 0-2 .9-2 2v4.5C7 20 9.5 22 12 22z" />
+                  <circle cx="9.5" cy="5" r="0.75" fill="currentColor" stroke="none" />
+                  <circle cx="14.5" cy="19" r="0.75" fill="currentColor" stroke="none" />
+                </svg>
+              )}
             </div>
             <h3 class="mb-2 text-lg font-bold text-text-primary">
               {feature.title}
+              {feature.icon === "python-sdk" && (
+                <span class="ml-2 inline-block align-middle rounded-full bg-bg-subtle px-2 py-0.5 text-xs font-normal text-text-tertiary">
+                  Linux only
+                </span>
+              )}
             </h3>
             <p class="text-sm leading-relaxed text-text-secondary">
               {feature.description}
